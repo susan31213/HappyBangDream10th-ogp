@@ -10,7 +10,7 @@ exports.handler = async (event) => {
   };
 
   const config = rankConfig[rank] ?? rankConfig.CLEAR_0;
-  const host = event.headers?.host || 'https://happybangdream10th-game.susan31213.workers.dev';
+  const host = event.headers?.host || 'happy-bang-dream10th-game.netlify.app';
   const protocol = event.headers?.['x-forwarded-proto'] || event.headers?.['x-forwarded-protocol'] || 'https';
   const baseUrl = `${protocol}://${host}`;
   const imageUrl = `${baseUrl}${config.image}`;
