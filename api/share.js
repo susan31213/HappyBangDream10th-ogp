@@ -10,7 +10,7 @@ exports.handler = async (event) => {
   };
 
   const config = rankConfig[rank] ?? rankConfig.CLEAR_0;
-  const host = event.headers?.host || 'happy-bang-dream10th-game.netlify.app';
+  const host = event.headers?.host || 'ogp.bangdreamdoujin10thgame.com';
   const protocol = event.headers?.['x-forwarded-proto'] || event.headers?.['x-forwarded-protocol'] || 'https';
   const baseUrl = `${protocol}://${host}`;
   const imageUrl = `${baseUrl}${config.image}`;
@@ -33,7 +33,7 @@ exports.handler = async (event) => {
   <meta name="twitter:image"       content="${imageUrl}">
 
   <!-- ゲーム本体にリダイレクト（任意） -->
-  <meta http-equiv="refresh" content="0;url=https://happybangdream10th-game.susan31213.workers.dev">
+  <meta http-equiv="refresh" content="0;url=https://www.bangdreamdoujin10thgame.com">
 </head>
 <body>
   <p>リダイレクト中...</p>
