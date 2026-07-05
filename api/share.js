@@ -13,7 +13,7 @@ exports.handler = async (event) => {
   const host = event.headers?.host || 'ogp.bangdreamdoujin10thgame.com';
   const protocol = event.headers?.['x-forwarded-proto'] || event.headers?.['x-forwarded-protocol'] || 'https';
   const baseUrl = `${protocol}://${host}`;
-  const imageUrl = `${baseUrl}${config.image}`;
+  const imageUrl = `${baseUrl}${config.image}?timestamp=${Date.now()}`;
   const shareUrl = `${baseUrl}/api/share?rank=${encodeURIComponent(rank)}`;
 
   const html = `<!DOCTYPE html>
