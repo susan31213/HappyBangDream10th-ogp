@@ -10,6 +10,17 @@ exports.handler = async (event) => {
     CLEAR_SP: { image: `/ogp/mygo/${language}/clear_sp.png` },
   };
 
+  const titleMap = {
+    ja: 'あなたは何級？ともりんの石検定に挑戦してみてね！',
+    en: 'What is your level? Try Tomorin\'s Stone Test!',
+    cht: '你是幾級?快來挑戰看看小燈的石頭檢定吧!',
+  }
+  const descriptionMap = {
+    ja: 'あなたの石検定レベルをチェック！',
+    en: 'Check your level in the Stone Test!',
+    cht: '快來確認你的等級吧!',
+  }
+
   const config = rankConfig[rank] ?? rankConfig.CLEAR_0;
   const host = event.headers?.host || 'ogp.bangdreamdoujin10thgame.com';
   const protocol = event.headers?.['x-forwarded-proto'] || event.headers?.['x-forwarded-protocol'] || 'https';
@@ -23,14 +34,14 @@ exports.handler = async (event) => {
   <meta charset="UTF-8">
   <meta property="og:type"         content="website">
   <meta property="og:url"          content="${shareUrl}">
-  <meta property="og:title"        content="あなたは何級？ともりんの石検定に挑戦してみてね！">
-  <meta property="og:description"  content="あなたの石検定レベルをチェック！">
+  <meta property="og:title"        content="${titleMap[language]}">
+  <meta property="og:description"  content="${descriptionMap[language]}">
   <meta property="og:image"        content="${imageUrl}">
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="あなたは何級？ともりんの石検定に挑戦してみてね！">
-  <meta name="twitter:description" content="あなたの石検定レベルをチェック！">
+  <meta name="twitter:title"       content="${titleMap[language]}">
+  <meta name="twitter:description" content="${descriptionMap[language]}">
   <meta name="twitter:image"       content="${imageUrl}">
 
   <!-- ゲーム本体にリダイレクト（任意） -->
