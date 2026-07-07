@@ -1,12 +1,13 @@
 exports.handler = async (event) => {
   const rank = event.queryStringParameters?.rank ?? 'CLEAR_0';
+  const language = event.queryStringParameters?.lang ?? 'ja';
 
   const rankConfig = {
-    CLEAR_0: { image: '/ogp/mygo/clear_00.png' },
-    CLEAR_1: { image: '/ogp/mygo/clear_01.png' },
-    CLEAR_2: { image: '/ogp/mygo/clear_02.png' },
-    CLEAR_3: { image: '/ogp/mygo/clear_03.png' },
-    CLEAR_SP: { image: '/ogp/mygo/clear_sp.png' },
+    CLEAR_0: { image: `/ogp/mygo/${language}/clear_00.png` },
+    CLEAR_1: { image: `/ogp/mygo/${language}/clear_01.png` },
+    CLEAR_2: { image: `/ogp/mygo/${language}/clear_02.png` },
+    CLEAR_3: { image: `/ogp/mygo/${language}/clear_03.png` },
+    CLEAR_SP: { image: `/ogp/mygo/${language}/clear_sp.png` },
   };
 
   const config = rankConfig[rank] ?? rankConfig.CLEAR_0;
@@ -14,7 +15,7 @@ exports.handler = async (event) => {
   const protocol = event.headers?.['x-forwarded-proto'] || event.headers?.['x-forwarded-protocol'] || 'https';
   const baseUrl = `${protocol}://${host}`;
   const imageUrl = `${baseUrl}${config.image}?timestamp=${Date.now()}`;
-  const shareUrl = `${baseUrl}/api/share?rank=${encodeURIComponent(rank)}`;
+  const shareUrl = `${baseUrl}/api/share?rank=${encodeURIComponent(rank)}&lang=${encodeURIComponent(language)}`;
 
   const html = `<!DOCTYPE html>
 <html>
