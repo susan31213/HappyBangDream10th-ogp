@@ -3,9 +3,11 @@
 // ここに require & 登録する
 
 const mygo = require('./mygo');
+const roselia = require('./roselia');
 
 const GAME_CONFIGS = {
   [mygo.id]: mygo,
+  [roselia.id]: roselia,
 };
 
 module.exports = GAME_CONFIGS;
