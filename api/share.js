@@ -1,34 +1,14 @@
-// 1. ゲームごとの設定データをオブジェクトに集約（別ファイルに切り出してもOK）
-const GAME_CONFIGS = {
-  mygo: {
-    imagePathSegment: 'mygo',
-    titleMap: {
-      ja: 'あなたは何級？ともりんの石検定に挑戦してみてね！',
-      en: "What is your level? Try Tomorin's Stone Test!",
-      cht: '你是幾級?快來挑戰看看小燈的石頭檢定吧!',
-    },
-    descriptionMap: {
-      ja: 'あなたの石検定レベルをチェック！',
-      en: 'Check your level in the Stone Test!',
-      cht: '快來確認你的等級吧!',
-    },
-  },
-};
+// HappyBangDream10th-game から生成された sns シェア URL に対して OGP 画像を返すサーバーコード
+// ゲームごとの設定・パースロジックは ./games/ 以下に分離されている
 
-// 2. 共通のランク画像名マッピング
-const RANK_IMAGE_MAP = {
-  CLEAR_0: 'clear_00.png',
-  CLEAR_1: 'clear_01.png',
-  CLEAR_2: 'clear_02.png',
-  CLEAR_3: 'clear_03.png',
-  CLEAR_SP: 'clear_sp.png',
-};
+const GAME_CONFIGS = require('./games');
 
 exports.handler = async (event) => {
+  const query = event.queryStringParameters ?? {};
+
   // クエリパラメータの取得（デフォルト値の設定）
-  const game = event.queryStringParameters?.game ?? 'mygo';
-  const rank = event.queryStringParameters?.rank ?? 'CLEAR_0';
-  const language = event.queryStringParameters?.lang ?? 'ja';
+  const game = query.game ?? 'mygo';
+  const language = query.lang ?? 'ja';
 
   // 指定されたゲームの設定を取得（存在しない場合は mygo にフォールバック）
   const activeConfig = GAME_CONFIGS[game] ?? GAME_CONFIGS.mygo;
@@ -37,17 +17,16 @@ exports.handler = async (event) => {
   const title = activeConfig.titleMap[language] ?? activeConfig.titleMap.ja;
   const description = activeConfig.descriptionMap[language] ?? activeConfig.descriptionMap.ja;
 
-  // 画像パスの組み立て
-  const imageName = RANK_IMAGE_MAP[rank] ?? RANK_IMAGE_MAP.CLEAR_0;
-  const imagePath = `/ogp/${activeConfig.imagePathSegment}/${language}/${imageName}`;
+  // 画像パスの組み立て（ゲームごとのロジックに委譲）
+  const imagePath = activeConfig.getImagePath(query, language);
 
   // ベースURL等の組み立て
   const host = event.headers?.host || 'ogp.bangdreamdoujin10thgame.com';
   const protocol = event.headers?.['x-forwarded-proto'] || event.headers?.['x-forwarded-protocol'] || 'https';
   const baseUrl = `${protocol}://${host}`;
-  
+
   const imageUrl = `${baseUrl}${imagePath}?timestamp=${Date.now()}`;
-  const shareUrl = `${baseUrl}/api/share?game=${encodeURIComponent(game)}&rank=${encodeURIComponent(rank)}&lang=${encodeURIComponent(language)}`;
+  const shareUrl = `${baseUrl}/api/share?${new URLSearchParams(query).toString()}`;
 
   // HTMLの生成
   const html = `<!DOCTYPE html>
