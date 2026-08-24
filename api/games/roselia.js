@@ -10,12 +10,12 @@ module.exports = {
   id: 'roselia',
   imagePathSegment: 'roselia',
   titleMap: {
-    ja: 'Roseliaにすべてを掛ける覚悟はある？あなたの覚悟を見せなさい！',
+    ja: 'Roseliaにすべてを賭ける覚悟はある？あなたの覚悟を見せなさい！',
     en: 'Do you all have the resolve to bet everything on Roselia? Show me!',
     cht: '為了Roselia﹐你有賭上一切的覺悟嗎?展現你的覺悟吧!',
   },
   descriptionMap: {
-    ja: 'Roseliaにすべてを掛ける覚悟はある？',
+    ja: 'Roseliaにすべてを賭ける覚悟はある？',
     en: 'Do you all have the resolve to bet everything on Roselia?',
     cht: '為了Roselia﹐你有賭上一切的覺悟嗎?',
   },
