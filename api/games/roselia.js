@@ -1,9 +1,9 @@
 // roselia のゲーム設定・パースロジック
 
-const VALID_RANKS = ['c', 'b', 'a', 's'];
+const VALID_RANKS = ['b', 'a', 's', 'sss'];
 const VALID_CHARAS = ['lisayuki', 'sayo', 'akorin'];
 
-const DEFAULT_RANK = 'c';
+const DEFAULT_RANK = 'b';
 const DEFAULT_CHARA = 'lisayuki';
 
 module.exports = {
