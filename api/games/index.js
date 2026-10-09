@@ -4,10 +4,12 @@
 
 const mygo = require('./mygo');
 const roselia = require('./roselia');
+const poppinparty = require('./poppinparty');
 
 const GAME_CONFIGS = {
   [mygo.id]: mygo,
   [roselia.id]: roselia,
+  [poppinparty.id]: poppinparty,
 };
 
 module.exports = GAME_CONFIGS;
